@@ -1,3 +1,4 @@
+
 gsap.registerPlugin(ScrollTrigger);
 
 ScrollTrigger.defaults({
@@ -11,7 +12,7 @@ gsap.to('.img-container',{
   scrollTrigger:{
     trigger:'.video-section',
     scrub:1,
-    start:"top top",
+    start:"top ",
     end:"bottom",
     pin:true
   }
@@ -32,16 +33,6 @@ gsap.to('.left' ,{
   duration:1.5,
   scrollTrigger:{
     start:1
-  }
-})
-
-
-gsap.to('.txt-bottom',{
-  autoAlpha:0,
-  letterSpacing:-10,
-  duration:2,
-  scrollTrigger:{
-    start:2
   }
 })
 
@@ -72,22 +63,22 @@ ScrollTrigger.create({
 
 
 
-gsap.utils.toArray('.col').forEach(image=>{
-  gsap.fromTo(image,{
-    opacity:.3,
-    x:0
-  },{
-    opacity:1,
-    x:-50,
-    scrollTrigger:{
-      trigger:image,
-      start:"10%",
-      stagger:{
-        amount:.4
-      }
-    }
-  })
-})
+// gsap.utils.toArray('.col').forEach(image=>{
+//   gsap.fromTo(image,{
+//     opacity:.3,
+//     x:0
+//   },{
+//     opacity:1,
+//     x:-50,
+//     scrollTrigger:{
+//       trigger:image,
+//       start:"10%",
+//       stagger:{
+//         amount:.4
+//       }
+//     }
+//   })
+// })
 
 const timeline = gsap.timeline();
 
@@ -95,8 +86,37 @@ timeline.from('.title span' ,{
   y:150,
   skewY:7,
   duration:3
-}).from('.txt-bottom',{
-  letterSpacing:-10,
+})
+
+const t2 = gsap.timeline();
+
+t2.from('.col-2 div',{
+  y:150,
   opacity:0,
-  duration:3
+  stagger:{
+    amount:.4
+  },
+  delay:.8
+}).from('.col-2 h1',{
+    y:110,
+    opacity:0.6,
+    
+    duration:1,
+    stagger:{
+      amount:.4
+    },
+
+  })
+.to('.boxes-container' ,{x:-window.innerWidth})
+
+
+
+ScrollTrigger.create({
+  animation:t2,
+  trigger:'.boxes-container',
+  start:"top top",
+  end:"=2200",
+  scrub:1,
+  pin:true,
+  ease:"ease"
 })
